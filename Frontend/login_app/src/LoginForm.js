@@ -1,26 +1,30 @@
-import React from "react";
-import './LoginForm.css';
+import React, {useState} from "react";
+import "./LoginForm.css";
 
-const LoginForm = (props) => {
-	const handleSubmit = (event) =>{
-		event.preventDefault();
+const LoginForm = props => {
+  const [login, setLogin] = useState();
+  const [password, setPassword] = useState();
+  const handleSubmit = event => {
+    event.preventDefault();
 
-		props.onSubmit({
-			login: undefined,
-			password: undefined,
-		});
-	}
+    props.onSubmit({
+      login,
+      password,
+    });
+  };
 
-	return (
-		<form className="form">
-			<h1>Login</h1>
-			<label htmlFor="name">Name</label>
-			<input type="text" id="name" />
-			<label htmlFor="password">Password</label>
-			<input type="password" id="password" />
-			<button type="submit" onClick={handleSubmit}>Continue</button>
-		</form>
-	)
-}
+  return (
+    <form className="form">
+      <h1>Login</h1>
+      <label htmlFor="name">Name</label>
+      <input type="text" id="name" value={login} onInput={e => setLogin(e.target.value)} />
+      <label htmlFor="password">Password</label>
+      <input type="password" id="password" value={password} onInput={e => setPassword(e.target.value)} />
+      <button type="submit" onClick={handleSubmit}>
+        Continue
+      </button>
+    </form>
+  );
+};
 
 export default LoginForm;

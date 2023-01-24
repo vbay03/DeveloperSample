@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 
 namespace DeveloperSample.Container
 {
     public class Container
     {
-        public void Bind(Type interfaceType, Type implementationType) => throw new NotImplementedException();
-        public T Get<T>() => throw new NotImplementedException();
+        private Dictionary<Type, Type> mapping = new();
+
+        public void Bind(Type interfaceType, Type implementationType) => mapping[interfaceType] = implementationType;
+        public T Get<T>() => (T)Activator.CreateInstance(mapping[typeof(T)]);
     }
 }
